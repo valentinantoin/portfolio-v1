@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block title 'Inscription'%}
+
+{% block content %}
+
+    <h1 class="pt">Inscrivez-vous..!</h1>
+
+    {% for message in app.flashes('register') %}
+
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+        <a href="{{ path('connection') }}"><button class="btn btn-warning">Connectez-vous ici</button></a>
+    {% endfor %}
+
+    <section class="form">
+
+        {{ form(form) }}
+
+    </section>
+
+{% endblock %}

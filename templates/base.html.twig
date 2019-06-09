@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<!--   HEAD   -->
+<head>
+
+    <!--  MAIN META   -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!--  TITLE   -->
+    <title>{% block title %}{% endblock %}</title>
+
+    <!--  SECONDARY META  -->
+    <meta name="description" content="Valentin Antoin Developpeur Web">
+    <meta name="author" content="Valentin ANTOIN">
+
+    <!--  OPENGRAPH  -->
+    <meta property="og:title" content="Valentin Antoin Developpeur Web">
+    <meta property="og:type" content="website">
+    <meta property="url" content="https://valentin-antoin.fr">
+    <meta property="og:image" content="">
+    <meta property="og:description" content="Valentin Antoin Developpeur Web">
+
+    <!--  TWITTER  -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="https://valentin-antoin.fr">
+    <meta name="twitter:title" content="Valentin Antoin Developpeur Web">
+    <meta name="twitter:description" content="Valentin Antoin Developpeur Web">
+    <meta name="twitter:creator" content="@Valentin_Antoin">
+    <meta name="twitter:image" content="">
+
+
+    <!--  ICONS   -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <!--   FONTS   -->
+
+    <!--   NORMALIZE   -->
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+
+    <!--   GOOGLE SEARCH CONSOLE   -->
+
+    <!--  CSS STYLESHEET   -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    {% block css %}{% endblock%}
+
+    <!--  CKEDITOR -->
+    {% block meta %}{% endblock %}
+
+</head>
+<body>
+
+<header>
+
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="{{ path('home') }}">Valentin Antoin</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('home') }}">Accueil <span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('projects') }}">Portfolio</a>
+                </li>
+                {% if not is_granted('ROLE_ADMIN')%}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('contact') }}">Contact</a>
+                </li>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN')%}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Admin
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{{ path('dashboard') }}">Dashboard</a>
+                            <a class="dropdown-item" href="{{ path('create') }}">Nouveau projet</a>
+                        </div>
+                    </li>
+                {% endif %}
+                {% if not app.user %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Connectez-vous
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{{ path('registration') }}">Inscription</a>
+                            <a class="dropdown-item" href="{{ path('connection') }}">Connexion</a>
+                        </div>
+                    </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('deconnection') }}">Déconnexion</a>
+                </li>
+                {% endif %}
+                {% if app.user %}
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Bonjour {{ app.user.username }} !!</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+</header>
+
+{% block content %}{% endblock %}
+
+<footer>
+        <a target="_blank" href="https://github.com/valentinantoin" title="Github"><i class="fab fa-github-square fa-3x"></i></a>
+        <a target="_blank" href="https://www.linkedin.com/in/valentin-antoin/" title="LinkedIn"><i class="fab fa-linkedin fa-3x"></i></a>
+        <a target="_blank" href="https://twitter.com/Valentin_Antoin" title="Twitter"><i class="fab fa-twitter-square fa-3x"></i></a>
+</footer>
+
+{% block javascripts %}{% endblock %}
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
+

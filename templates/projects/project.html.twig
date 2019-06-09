@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ project.title }}{% endblock %}
+
+{% block css %}
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+
+{% endblock %}
+
+
+{% block content %}
+
+    {% for message in app.flashes('delete') %}
+
+    <div class="alert alert-success">{{ message }}</div>
+
+    {% endfor %}
+
+    <h1 class="pt">{{ project.title }}</h1>
+
+    <section class="justify center">
+
+        <figure>
+            <img src="../img/projects/{{ project.imageName }}" alt="premiere page du site">
+        </figure>
+
+        <p>{{ project.content | raw }}</p>
+        <a href="{{ project.link }}" target="_blank">Lien vers le site</a>
+
+    </section>
+
+    <section class="comments">
+
+        {% if not app.user %}
+            <h4>Pour laisser un commentaire, <a href="{{ path('registration') }}"><button class="btn btn-dark">Inscrivez-vous</button></a>
+                ou <a href="{{ path('connection') }}"><button class="btn btn-dark">Connectez-vous</button></a></h4>
+        {% endif %}
+
+
+    </section>
+
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Dashboard' %}
+
+{% block css %}
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+
+{% endblock %}
+
+{% block content %}
+
+    <h1 class="pt">Dashboard</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Projets en ligne</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for project in projects %}
+        <tr>
+            <td><a href="{{ path('project', {'id' : project.id}) }}">{{ project.title }}</a></td>
+            <td> <a class="controls" href="{{ path('update', {'id':project.id }) }}">
+                    <button type="button" class="btn btnChap btn-warning">Modifier</button>
+                </a></td>
+            <td> <a class="controls" href="{{ path('delete', {'id':project.id }) }}">
+                    <button type="button" class="btn btnChap btn-danger">Supprimer</button>
+                </a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Utilisateurs enregistrés</th>
+            <th>Mail</th>
+            <th>Depuis le :</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td><a href="mailto:{{ user.mail }}">{{ user.mail }}</a></td>
+                <td>{{ user.creationDate | date("m/d/Y") }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

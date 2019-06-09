@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Modication du projet' %}
+
+{% block meta %}
+
+    <script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
+
+{% endblock %}
+
+{% block css %}
+
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+
+{% endblock %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+
+{% block content %}
+
+    <h1 class="pt">Modifier le projet</h1>
+
+    {% for message in app.flashes('update') %}
+
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <section class="form">
+
+        {{ form(form) }}
+
+    </section>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script>
+        CKEDITOR.replace( 'project[content]' );
+    </script>
+
+
+{% endblock %}

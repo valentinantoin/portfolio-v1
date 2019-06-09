@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block title 'Contactez moi !'%}
+
+{% block content %}
+
+    <h1 class="pt">Contactez moi...</h1>
+
+    {% for message in app.flashes('success') %}
+
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    <section class="form">
+
+   {{ form(form) }}
+
+    </section>
+
+{% endblock %}

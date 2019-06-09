@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Portfolio'%}
+
+{% block content %}
+
+    <h1 class="pt">Portfolio et actualités...</h1>
+
+    <h2>Flux d'actualités en direct</h2>
+
+    <h2>Projets finalisés</h2>
+
+    <div class="flex">
+
+    {% for project in projects %}
+
+<div class="card border-warning" id="card">
+    <div class="card-header">{{ project.title }}</div>
+    <div class="card-body">
+        <h4 class="card-title"><img src="img/projects/{{ project.imageName }}"></h4>
+        <p class="card-text">{{ project.content | slice(0, 250) | raw }}</p>
+        <a href="{{ path('project', {'id' : project.id}) }}" class="card-link">Voir plus...</a>
+    </div>
+</div>
+
+    {% endfor %}
+
+    </div>
+
+
+{% endblock %}
