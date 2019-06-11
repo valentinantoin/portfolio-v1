@@ -52,7 +52,7 @@ class Users implements UserInterface
     private $creationDate;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="author", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Comments", mappedBy="username", orphanRemoval=true)
      */
     private $comments;
 
@@ -60,6 +60,7 @@ class Users implements UserInterface
     {
         $this->comments = new ArrayCollection();
     }
+
 
     /**
      * @return int|null
@@ -189,30 +190,30 @@ class Users implements UserInterface
     }
 
     /**
-     * @return Collection|Comment[]
+     * @return Collection|Comments[]
      */
     public function getComments(): Collection
     {
         return $this->comments;
     }
 
-    public function addComment(Comment $comment): self
+    public function addComment(Comments $comment): self
     {
         if (!$this->comments->contains($comment)) {
             $this->comments[] = $comment;
-            $comment->setAuthor($this);
+            $comment->setUsername($this);
         }
 
         return $this;
     }
 
-    public function removeComment(Comment $comment): self
+    public function removeComment(Comments $comment): self
     {
         if ($this->comments->contains($comment)) {
             $this->comments->removeElement($comment);
             // set the owning side to null (unless already changed)
-            if ($comment->getAuthor() === $this) {
-                $comment->setAuthor(null);
+            if ($comment->getUsername() === $this) {
+                $comment->setUsername(null);
             }
         }
 

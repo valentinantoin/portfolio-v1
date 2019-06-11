@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
+use App\Entity\Comments;
 use App\Entity\Projects;
+use App\Form\Type\CommentType;
 use App\Form\Type\ProjectType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,11 +38,15 @@ class ProjectsController extends AbstractController
      */
     public function project($id)
     {
-        $repo = $this->getDoctrine()->getRepository(Projects::class);
-        $project = $repo->find($id);
+        $repoProject = $this->getDoctrine()->getRepository(Projects::class);
+        $project = $repoProject->find($id);
+
+        $repoComment = $this->getDoctrine()->getRepository(Comments::class);
+        $comments = $repoComment->findBy(['projectId' => $id]);
 
         return $this->render('projects/project.html.twig', [
-            'project' => $project
+            'project' => $project,
+        'comments' => $comments
         ]);
     }
 
@@ -51,6 +58,9 @@ class ProjectsController extends AbstractController
      */
     public function createProject(Request $request, ObjectManager $manager)
     {
+
+        if($this->isGranted('ROLE_ADMIN')) {
+
         $project = new Projects();
 
         $form = $this->createForm(ProjectType::class, $project);
@@ -69,6 +79,11 @@ class ProjectsController extends AbstractController
         return $this->render('admin/create.html.twig', [
             'form' => $form->createView()
         ]);
+
+        }else {
+
+            return $this->redirectToRoute('connection');
+        }
     }
 
     /**
@@ -78,12 +93,19 @@ class ProjectsController extends AbstractController
      */
     public function deleteProject(Projects $project)
     {
-        $manager = $this->getDoctrine()->getManager();
+
+        if($this->isGranted('ROLE_ADMIN')) {
+
+            $manager = $this->getDoctrine()->getManager();
         $manager->remove($project);
 
         $manager->flush();
 
         return $this->redirectToRoute('projects');
+    }else {
+
+            return $this->redirectToRoute('connection');
+        }
     }
 
     /**
@@ -95,7 +117,9 @@ class ProjectsController extends AbstractController
      */
     public function updateProject(Request $request,ObjectManager $manager, Projects $project)
     {
-        $form = $this->createForm(ProjectType::class, $project);
+        if($this->isGranted('ROLE_ADMIN')) {
+
+            $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
@@ -111,5 +135,8 @@ class ProjectsController extends AbstractController
             'project' => $project,
             'form' => $form->createView()
         ]);
+    }else {
+            return $this->redirectToRoute('connection');
+        }
     }
 }

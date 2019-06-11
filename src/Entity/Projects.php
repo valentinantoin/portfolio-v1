@@ -57,7 +57,7 @@ class Projects
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="project", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Comments", mappedBy="projectId", orphanRemoval=true)
      */
     private $comments;
 
@@ -140,30 +140,30 @@ class Projects
     }
 
     /**
-     * @return Collection|Comment[]
+     * @return Collection|Comments[]
      */
     public function getComments(): Collection
     {
         return $this->comments;
     }
 
-    public function addAuthor(Comment $comments): self
+    public function addComment(Comments $comment): self
     {
-        if (!$this->comments->contains($comments)) {
-            $this->comments[] = $comments;
-            $comments->setProject($this);
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setProjectId($this);
         }
 
         return $this;
     }
 
-    public function removeAuthor(Comment $comments): self
+    public function removeComment(Comments $comment): self
     {
-        if ($this->comments->contains($comments)) {
-            $this->comments->removeElement($comments);
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
             // set the owning side to null (unless already changed)
-            if ($comments->getProject() === $this) {
-                $comments->setProject(null);
+            if ($comment->getProjectId() === $this) {
+                $comment->setProjectId(null);
             }
         }
 

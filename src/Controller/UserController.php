@@ -16,6 +16,11 @@ class UserController extends AbstractController
 {
     /**
      * @Route("/registration", name="registration")
+     * @param Request $request
+     * @param ObjectManager $manager
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
     public function registration(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -46,6 +51,8 @@ class UserController extends AbstractController
 
     /**
      * @Route("/connection", name="connection")
+     * @param AuthenticationUtils $authenticationUtils
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function connection(AuthenticationUtils $authenticationUtils)
     {

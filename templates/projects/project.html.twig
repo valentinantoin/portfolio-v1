@@ -27,7 +27,7 @@
         </figure>
 
         <p>{{ project.content | raw }}</p>
-        <a href="{{ project.link }}" target="_blank">Lien vers le site</a>
+        <a href="{{ project.link }}" target="_blank" rel="noopener noreferrer">Lien vers le site</a>
 
     </section>
 
@@ -36,6 +36,33 @@
         {% if not app.user %}
             <h4>Pour laisser un commentaire, <a href="{{ path('registration') }}"><button class="btn btn-dark">Inscrivez-vous</button></a>
                 ou <a href="{{ path('connection') }}"><button class="btn btn-dark">Connectez-vous</button></a></h4>
+            {% else %}
+
+                {% for comment in comments %}
+
+                    <section class="card">
+                        <h3 class="card-header">Posté par : <strong>{{ comment.username.username }}</strong>, le {{ comment.creationDate | date("d/m/Y g:i") }}</h3>
+                        <div class="card-body">
+                            <p class="card-text">{{ comment.content }}</p>
+                        </div>
+
+                    </section>
+
+                {% endfor %}
+
+                <form class="form" method="post" action="{{ path('createComment',{'id' : project.id}) }}">
+
+                    <div class="input-group flex-nowrap">
+                        <div class="input-group-prepend">
+                            <label for="comment" class="input-group-text" id="addon-wrapping">Ecrire un commentaire</label>
+                        </div>
+                        <textarea id="content" class="form-control" aria-label="content" name="content" aria-describedby="addon-wrapping" rows="4" cols ="20" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Envoyer</button>
+
+                </form>
+
         {% endif %}
 
 
