@@ -2,14 +2,16 @@
 
 namespace App\Controller;
 
-use App\Entity\Comment;
 use App\Entity\Comments;
+use App\Entity\ProjectLike;
 use App\Entity\Projects;
-use App\Form\Type\CommentType;
 use App\Form\Type\ProjectType;
+use App\Repository\ProjectLikeRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -137,6 +139,60 @@ class ProjectsController extends AbstractController
         ]);
     }else {
             return $this->redirectToRoute('connection');
+        }
+    }
+
+    /**
+     *
+     * @Route("/project/{id}/like", name="project_like")
+     * @param Projects $Project
+     * @param ProjectLikeRepository $likeRepo
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function like(Projects $Project, ProjectLikeRepository $likeRepo, ObjectManager $manager): Response
+    {
+        $user = $this->getUser();
+
+        if(!$user)
+        {
+            return $this->json([
+                'code' => 403,
+                'message' => 'Connectez vous pour liker'
+            ], 403);
+        }
+
+        else if($Project->isLikedByUser($user))
+        {
+            $like = $likeRepo->findOneBy([
+                'Project' => $Project,
+                'user' => $user
+            ]);
+
+            $manager->remove($like);
+            $manager->flush();
+
+            return $this->json([
+                'code' => 200,
+                'message' => 'Like bien supprimé',
+                'likes' => $likeRepo->count(['Project' => $Project])
+            ], 200);
+        }
+        else
+        {
+            $like = new ProjectLike();
+
+            $like->setProject($Project)
+                ->setUser($user);
+
+            $manager->persist($like);
+            $manager->flush();
+
+            return $this->json([
+                'code' => 200,
+                'message' => 'Like bien ajouté',
+                'likes' => $likeRepo->count(['Project' => $Project])
+            ], 200);
         }
     }
 }

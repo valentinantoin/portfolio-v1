@@ -7,7 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Security\Core\User\User;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use App\Entity\Users;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProjectsRepository")
@@ -61,9 +63,15 @@ class Projects
      */
     private $comments;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ProjectLike", mappedBy="Project")
+     */
+    private $Likes;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->Likes = new ArrayCollection();
     }
 
 
@@ -170,4 +178,44 @@ class Projects
         return $this;
     }
 
+    /**
+     * @return Collection|ProjectLike[]
+     */
+    public function getLikes(): Collection
+    {
+        return $this->Likes;
+    }
+
+    public function addLike(ProjectLike $like): self
+    {
+        if (!$this->Likes->contains($like)) {
+            $this->Likes[] = $like;
+            $like->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(ProjectLike $like): self
+    {
+        if ($this->Likes->contains($like)) {
+            $this->Likes->removeElement($like);
+            // set the owning side to null (unless already changed)
+            if ($like->getProject() === $this) {
+                $like->setProject(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function isLikedByUser(Users $user): bool
+    {
+        foreach ($this->Likes as $like)
+        {
+            if($like->getUser() === $user) return true;
+        }
+
+        return false;
+    }
 }

@@ -55,8 +55,8 @@ h3{
 }
 
 .logo {
-    width: 10%;
-    height: 7%;
+    width: 5%;
+    height: 4%;
 }
 
 .presentation figure {
@@ -138,4 +138,28 @@ th {
     margin: 3rem;
     padding-top: 2rem;
     text-align: center;
+}
+
+#comments {
+    width: 60%;
+    margin: 2rem 20%;
+}
+
+#comments h3,
+#comments p {
+    text-align: left;
+}
+
+.home {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+#twitter {
+    width: 40%;
+    margin: 1rem;
+}
+
+.ml {
+    margin: 2rem;
 }

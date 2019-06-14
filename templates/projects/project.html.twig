@@ -27,7 +27,16 @@
         </figure>
 
         <p>{{ project.content | raw }}</p>
-        <a href="{{ project.link }}" target="_blank" rel="noopener noreferrer">Lien vers le site</a>
+        <a class="ml btn btn-warning" href="{{ project.link }}" target="_blank" rel="noopener noreferrer">Lien vers le site</a>
+        <a href="{{ path('project_like', {id: project.id}) }}" class="btn btn-primary js-like">
+            <span class="js-likes">{{ project.likes | length }}</span>
+            {% if app.user and project.isLikedByUser(app.user) %}
+                <i class="fas fa-thumbs-up"></i>
+            {% else %}
+                <i class="far fa-thumbs-up"></i>
+            {% endif %}
+            <span class="js-label">J'aime</span>
+        </a>
 
     </section>
 
@@ -37,18 +46,6 @@
             <h4>Pour laisser un commentaire, <a href="{{ path('registration') }}"><button class="btn btn-dark">Inscrivez-vous</button></a>
                 ou <a href="{{ path('connection') }}"><button class="btn btn-dark">Connectez-vous</button></a></h4>
             {% else %}
-
-                {% for comment in comments %}
-
-                    <section class="card">
-                        <h3 class="card-header">Posté par : <strong>{{ comment.username.username }}</strong>, le {{ comment.creationDate | date("d/m/Y g:i") }}</h3>
-                        <div class="card-body">
-                            <p class="card-text">{{ comment.content }}</p>
-                        </div>
-
-                    </section>
-
-                {% endfor %}
 
                 <form class="form" method="post" action="{{ path('createComment',{'id' : project.id}) }}">
 
@@ -65,8 +62,27 @@
 
         {% endif %}
 
+                {% for comment in comments %}
+
+                    <section class="card" id="comments">
+                        <h3 class="card-header">Posté par : <strong>{{ comment.username.username }}</strong>, le {{ comment.creationDate | date("d/m/Y g:i") }}</h3>
+                        <div class="card-body">
+                            <p class="card-text">{{ comment.content }}</p>
+                        </div>
+
+                    </section>
+
+                {% endfor %}
+
 
     </section>
 
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../js/like.js"></script>
 
 {% endblock %}

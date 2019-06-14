@@ -9,6 +9,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Projects;
 use App\Form\Type\ProjectType;
+use Abraham\TwitterOAuth\TwitterOAuth;
+use Twitter\Text\Autolink;
 
 
 class AdminController extends AbstractController
@@ -18,7 +20,16 @@ class AdminController extends AbstractController
      */
     public function Index()
     {
-        return $this->render('home/home.html.twig');
+        $oauth = new TwitterOAuth("example", "example");
+        $accessToken = $oauth->oauth2('oauth2/token', ['grant_type' => 'client_credentials']);
+
+        $twitter = new TwitterOAuth("example", "example", null, $accessToken->access_token);
+        $tweets = $twitter->get('statuses/user_timeline', ['screen_name' => 'screen_name', 'exclude_replies' => 'true', 'count' => '5']);
+
+
+        return $this->render('home/home.html.twig', [
+            'tweets' => $tweets
+        ]);
     }
 
     /**

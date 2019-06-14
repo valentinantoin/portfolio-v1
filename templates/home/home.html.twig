@@ -21,6 +21,20 @@
 
 </section>
 
+    <div class="home">
+
+        <div class="card border-secondary mb-3" id="twitter">
+            <div class="card-header">Flux d'actualités</div>
+            {% for tweet in tweets %}
+            <div class="card-body">
+
+                <p class="card-text" id="tweet">{{ tweet.text | autoLink | raw }}</p>
+                <p class="card-text"><small>Le {{ tweet.created_at | date("d/m/Y g:i") }}</small></p>
+            </div>
+            {% endfor %}
+        </div>
+
+
 <section class="presentation justify" id="presentation">
 
     <h2>Présentation rapide...</h2>
@@ -59,11 +73,10 @@
         <img src="img/wordpress.png" alt="" class="logo">
         <img src="img/symfony.png" alt="" class="logo">
         <img src="img/mysql.png" alt="" class="logo">
-
-
     </figure>
 
-
 </section>
+
+    </div>
 
 {% endblock %}
