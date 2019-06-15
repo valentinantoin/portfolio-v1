@@ -1,4 +1,4 @@
-
+/*---GLOBAL---*/
 * {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -16,9 +16,55 @@ body {
     padding-bottom: 7rem;
 }
 
+h1,
+p {
+    text-align: center;
+}
+
+h2,
+h3{
+    text-align: center;
+    text-decoration: underline;
+    padding-top: 5rem;
+}
+
+footer {
+    display: flex;
+    justify-content: space-around;
+    background-color: #3A3F44;
+    padding: 1rem;
+    margin-top: 3rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.form {
+    margin-left: 25%;
+    margin-top: 5rem;
+    width: 50%;
+    justify-content: center;
+}
 
 
+/*---HELPER---*/
+.pt {
+    padding-top: 5rem;
+}
 
+.flex {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.ml {
+    margin: 2rem;
+}
+
+
+/*---HOME---*/
 section img {
     width: 100%;
 }
@@ -35,23 +81,10 @@ section {
     background-color: rgba(39,43,48,0.9);
 }
 
-h1,
-p {
-    text-align: center;
-}
-
 .presentation p,
 .justify p {
     text-align: justify;
     margin: 2rem;
-}
-
-h2,
-h3{
-    text-align: center;
-    text-decoration: underline;
-    padding-top: 5rem;
-
 }
 
 .logo {
@@ -65,47 +98,27 @@ h3{
     margin-top: 6rem;
 }
 
-footer {
+.home {
     display: flex;
-    justify-content: space-around;
-    background-color: #3A3F44;
-    padding: 1rem;
-    margin-top: 3rem;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    flex-direction: row-reverse;
 }
 
-.pt {
-    padding-top: 5rem;
-}
-
-.form {
-    margin-left: 25%;
-    margin-top: 5rem;
-    width: 50%;
-    justify-content: center;
-}
-
-.flex {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
-
-#card {
+#twitter {
     width: 40%;
+    margin: 5rem 1rem 1rem 1rem;
+}
+
+
+/*---PORTFOLIO---*/
+.card-project {
+    width: 43%;
     margin: 3rem;
     box-shadow: 10px 10px 10px #1b1e21, -10px -10px 10px #1b1e21;
 }
 
-#card h4 {
-    text-align: center;
-}
-
-h4 img {
+.card-body img {
     width: 70%;
+    margin-left: 15%;
 }
 
 .center img {
@@ -115,6 +128,25 @@ h4 img {
     box-shadow: 10px 10px 10px #1b1e21, -10px -10px 10px #1b1e21;
 }
 
+.comments {
+    border-top: 1px solid #F9980F;
+    margin: 3rem;
+    padding-top: 2rem;
+    text-align: center;
+}
+
+.card-comment {
+    width: 60%;
+    margin: 2rem 20%;
+}
+
+.card-comment h3,
+.card-comment p {
+    text-align: left;
+}
+
+
+/*---ADMIN---*/
 table {
     box-shadow: 10px 10px 10px #1b1e21, -10px -10px 10px #1b1e21;
     width: 80%;
@@ -133,33 +165,84 @@ th {
     width: 60%;
 }
 
-.comments {
-    border-top: 1px solid #F9980F;
-    margin: 3rem;
-    padding-top: 2rem;
-    text-align: center;
-}
 
-#comments {
-    width: 60%;
-    margin: 2rem 20%;
-}
+/*---MEDIAQUERIES---*/
+@media (max-width: 768px) {
 
-#comments h3,
-#comments p {
-    text-align: left;
-}
+    .jumbotron {
+        height: 55%;
+        padding: 0;
+    }
 
-.home {
-    display: flex;
-    flex-direction: row-reverse;
-}
+    .btn-lg {
+        display: none;
+    }
 
-#twitter {
-    width: 40%;
-    margin: 1rem;
-}
+    #twitter {
+        width: 150%;
+    }
 
-.ml {
-    margin: 2rem;
+    .card-project {
+        margin: 1rem;
+        width: 45%;
+    }
+
+    .card-comment {
+        width: 90%;
+        margin-left: 5%;
+    }
+
+    .logo {
+        width: 15%;
+    }
+}
+@media (max-width: 375px) {
+
+    .jumbotron {
+        display: none;
+    }
+
+    .home {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    #twitter {
+        width: 90%;
+        margin-top: 5rem;
+    }
+
+    h2,
+    h3{
+        padding-top: 2rem;
+    }
+
+    .card-project {
+        margin: 1rem;
+        width: 90%;
+    }
+
+    .card-comment {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .comments {
+        width: 90%;
+        margin: 5%;
+    }
+
+    .form {
+        width: 90%;
+        margin-left: 5%;
+    }
+
+    button {
+        width: 80%;
+        margin-left: 10%;
+    }
+
+    h1 {
+        margin-top: 1.5rem;
+    }
 }
