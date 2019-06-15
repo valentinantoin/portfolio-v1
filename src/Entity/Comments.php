@@ -38,16 +38,26 @@ class Comments
      */
     private $creationDate;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return Projects|null
+     */
     public function getProjectId(): ?Projects
     {
         return $this->projectId;
     }
 
+    /**
+     * @param Projects|null $projectId
+     * @return Comments
+     */
     public function setProjectId(?Projects $projectId): self
     {
         $this->projectId = $projectId;
@@ -55,11 +65,18 @@ class Comments
         return $this;
     }
 
+    /**
+     * @return Users|null
+     */
     public function getUsername(): ?Users
     {
         return $this->username;
     }
 
+    /**
+     * @param Users|null $username
+     * @return Comments
+     */
     public function setUsername(?Users $username): self
     {
         $this->username = $username;
@@ -67,11 +84,18 @@ class Comments
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getContent(): ?string
     {
         return $this->content;
     }
 
+    /**
+     * @param string $content
+     * @return Comments
+     */
     public function setContent(string $content): self
     {
         $this->content = $content;
@@ -79,11 +103,18 @@ class Comments
         return $this;
     }
 
+    /**
+     * @return \DateTimeInterface|null
+     */
     public function getCreationDate(): ?\DateTimeInterface
     {
         return $this->creationDate;
     }
 
+    /**
+     * @param \DateTimeInterface $creationDate
+     * @return Comments
+     */
     public function setCreationDate(\DateTimeInterface $creationDate): self
     {
         $this->creationDate = $creationDate;

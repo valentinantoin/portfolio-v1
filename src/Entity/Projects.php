@@ -68,6 +68,9 @@ class Projects
      */
     private $Likes;
 
+    /**
+     * Projects constructor.
+     */
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -75,16 +78,26 @@ class Projects
     }
 
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getTitle(): ?string
     {
         return $this->title;
     }
 
+    /**
+     * @param string $title
+     * @return Projects
+     */
     public function setTitle(string $title): self
     {
         $this->title = $title;
@@ -92,11 +105,18 @@ class Projects
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getContent(): ?string
     {
         return $this->content;
     }
 
+    /**
+     * @param string $content
+     * @return Projects
+     */
     public function setContent(string $content): self
     {
         $this->content = $content;
@@ -104,11 +124,18 @@ class Projects
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getLink(): ?string
     {
         return $this->link;
     }
 
+    /**
+     * @param string $link
+     * @return Projects
+     */
     public function setLink(string $link): self
     {
         $this->link = $link;
@@ -124,6 +151,10 @@ class Projects
         return $this->imageFile;
     }
 
+    /**
+     * @param File|null $imageName
+     * @throws \Exception
+     */
     public function setImageFile(File $imageName = null)
     {
         $this->imageFile = $imageName;
@@ -137,11 +168,17 @@ class Projects
         }
     }
 
+    /**
+     * @param $image
+     */
     public function setImageName($image)
     {
         $this->imageName = $image;
     }
 
+    /**
+     * @return string|null
+     */
     public function getImageName()
     {
         return $this->imageName;
@@ -155,6 +192,10 @@ class Projects
         return $this->comments;
     }
 
+    /**
+     * @param Comments $comment
+     * @return Projects
+     */
     public function addComment(Comments $comment): self
     {
         if (!$this->comments->contains($comment)) {
@@ -165,6 +206,10 @@ class Projects
         return $this;
     }
 
+    /**
+     * @param Comments $comment
+     * @return Projects
+     */
     public function removeComment(Comments $comment): self
     {
         if ($this->comments->contains($comment)) {
@@ -186,6 +231,10 @@ class Projects
         return $this->Likes;
     }
 
+    /**
+     * @param ProjectLike $like
+     * @return Projects
+     */
     public function addLike(ProjectLike $like): self
     {
         if (!$this->Likes->contains($like)) {
@@ -196,6 +245,10 @@ class Projects
         return $this;
     }
 
+    /**
+     * @param ProjectLike $like
+     * @return Projects
+     */
     public function removeLike(ProjectLike $like): self
     {
         if ($this->Likes->contains($like)) {
@@ -209,6 +262,10 @@ class Projects
         return $this;
     }
 
+    /**
+     * @param \App\Entity\Users $user
+     * @return bool
+     */
     public function isLikedByUser(Users $user): bool
     {
         foreach ($this->Likes as $like)

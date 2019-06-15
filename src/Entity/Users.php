@@ -61,12 +61,14 @@ class Users implements UserInterface
      */
     private $likes;
 
+    /**
+     * Users constructor.
+     */
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->likes = new ArrayCollection();
     }
-
 
     /**
      * @return int|null
@@ -149,7 +151,6 @@ class Users implements UserInterface
         $this->password_check = $password_check;
     }
 
-
     /**
      * @return \DateTimeInterface|null
      */
@@ -203,6 +204,10 @@ class Users implements UserInterface
         return $this->comments;
     }
 
+    /**
+     * @param Comments $comment
+     * @return Users
+     */
     public function addComment(Comments $comment): self
     {
         if (!$this->comments->contains($comment)) {
@@ -213,6 +218,10 @@ class Users implements UserInterface
         return $this;
     }
 
+    /**
+     * @param Comments $comment
+     * @return Users
+     */
     public function removeComment(Comments $comment): self
     {
         if ($this->comments->contains($comment)) {
@@ -234,6 +243,10 @@ class Users implements UserInterface
         return $this->likes;
     }
 
+    /**
+     * @param ProjectLike $like
+     * @return Users
+     */
     public function addLike(ProjectLike $like): self
     {
         if (!$this->likes->contains($like)) {
@@ -244,6 +257,10 @@ class Users implements UserInterface
         return $this;
     }
 
+    /**
+     * @param ProjectLike $like
+     * @return Users
+     */
     public function removeLike(ProjectLike $like): self
     {
         if ($this->likes->contains($like)) {

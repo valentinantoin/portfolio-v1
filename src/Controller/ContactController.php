@@ -17,10 +17,15 @@ class ContactController extends AbstractController
 {
     /**
      * @Route("/contact", name="contact")
+     * @param Request $request
+     * @param ContactNotification $notification
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function contact(Request $request, ContactNotification $notification)
     {
-
         $contact = new Contact();
 
         $form = $this->createForm(ContactType::class, $contact);

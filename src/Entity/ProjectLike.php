@@ -28,16 +28,26 @@ class ProjectLike
      */
     private $user;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return Projects|null
+     */
     public function getProject(): ?Projects
     {
         return $this->Project;
     }
 
+    /**
+     * @param Projects|null $Project
+     * @return ProjectLike
+     */
     public function setProject(?Projects $Project): self
     {
         $this->Project = $Project;
@@ -45,11 +55,18 @@ class ProjectLike
         return $this;
     }
 
+    /**
+     * @return Users|null
+     */
     public function getUser(): ?Users
     {
         return $this->user;
     }
 
+    /**
+     * @param Users|null $user
+     * @return ProjectLike
+     */
     public function setUser(?Users $user): self
     {
         $this->user = $user;

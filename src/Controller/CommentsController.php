@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Comments;
 use App\Entity\Projects;
-use App\Entity\Users;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +16,6 @@ use Symfony\Component\Security\Core\Security;
  */
 class CommentsController extends AbstractController
 {
-
     /**
      * @Route("/createcomment/{id}", name="createComment")
      * @param Request $request
@@ -29,7 +27,6 @@ class CommentsController extends AbstractController
      */
     public function createComment(Request $request, ObjectManager $manager, Security $security, $id)
     {
-
         $comment = new Comments();
 
         if($request->isMethod('post')){

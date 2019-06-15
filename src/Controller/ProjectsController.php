@@ -9,7 +9,6 @@ use App\Form\Type\ProjectType;
 use App\Repository\ProjectLikeRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -60,7 +59,6 @@ class ProjectsController extends AbstractController
      */
     public function createProject(Request $request, ObjectManager $manager)
     {
-
         if($this->isGranted('ROLE_ADMIN')) {
 
         $project = new Projects();
@@ -95,17 +93,16 @@ class ProjectsController extends AbstractController
      */
     public function deleteProject(Projects $project)
     {
-
         if($this->isGranted('ROLE_ADMIN')) {
 
-            $manager = $this->getDoctrine()->getManager();
+        $manager = $this->getDoctrine()->getManager();
         $manager->remove($project);
 
         $manager->flush();
 
         return $this->redirectToRoute('projects');
-    }else {
 
+        }else {
             return $this->redirectToRoute('connection');
         }
     }
@@ -121,7 +118,7 @@ class ProjectsController extends AbstractController
     {
         if($this->isGranted('ROLE_ADMIN')) {
 
-            $form = $this->createForm(ProjectType::class, $project);
+        $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
@@ -139,7 +136,7 @@ class ProjectsController extends AbstractController
         ]);
     }else {
             return $this->redirectToRoute('connection');
-        }
+          }
     }
 
     /**
@@ -177,13 +174,12 @@ class ProjectsController extends AbstractController
                 'message' => 'Like bien supprimé',
                 'likes' => $likeRepo->count(['Project' => $Project])
             ], 200);
-        }
-        else
-        {
+
+        } else {
             $like = new ProjectLike();
 
             $like->setProject($Project)
-                ->setUser($user);
+                 ->setUser($user);
 
             $manager->persist($like);
             $manager->flush();
