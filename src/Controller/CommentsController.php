@@ -53,4 +53,25 @@ class CommentsController extends AbstractController
             return $this->render('home/home.html.twig');
         }
     }
+
+    /**
+     * @Route("/admin/deleteComment/{id}", name="deleteComment")
+     * @param Comments $comment
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteComment(Comments $comment)
+    {
+        if($this->isGranted('ROLE_ADMIN')) {
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->remove($comment);
+
+            $manager->flush();
+
+            return $this->redirectToRoute('projects');
+
+        }else {
+            return $this->redirectToRoute('connection');
+        }
+    }
 }
