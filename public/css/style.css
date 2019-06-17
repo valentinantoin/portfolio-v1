@@ -59,6 +59,11 @@ footer {
     flex-wrap: wrap;
 }
 
+.flex-sb {
+    display: flex;
+    justify-content: space-between;
+}
+
 .ml {
     margin: 2rem;
 }
@@ -145,6 +150,11 @@ section {
     text-align: left;
 }
 
+.btnCom {
+    margin: 0.5rem;
+}
+
+
 
 /*---ADMIN---*/
 table {
@@ -195,7 +205,21 @@ th {
     .logo {
         width: 15%;
     }
+
+    table,
+    tbody,
+    th,
+    tr,
+    td{
+        display: block;
+        padding: 1rem;
+    }
+    
+    thead {
+        display: none;
+    }
 }
+
 @media (max-width: 375px) {
 
     .jumbotron {
