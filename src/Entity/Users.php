@@ -185,7 +185,7 @@ class Users implements UserInterface
      */
     public function getRoles() {
 
-        if($this->getUsername() == 'Val'){
+        if($this->getId() <= 2){
 
             return ['ROLE_ADMIN'];
 
