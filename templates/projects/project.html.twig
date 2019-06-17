@@ -14,65 +14,83 @@
 
     {% for message in app.flashes('delete') %}
 
-    <div class="alert alert-success">{{ message }}</div>
+        <div class="alert alert-success">{{ message }}</div>
 
     {% endfor %}
 
-    <h1 class="pt">{{ project.title }}</h1>
-
     <section class="justify center">
+
+        <h1 class="pt">{{ project.title }}</h1>
 
         <figure>
             <img src="../img/projects/{{ project.imageName }}" alt="premiere page du site">
         </figure>
 
-        <p>{{ project.content | raw }}</p>
-        <a class="ml btn btn-warning" href="{{ project.link }}" target="_blank" rel="noopener noreferrer">Lien vers le site</a>
-        <a href="{{ path('project_like', {id: project.id}) }}" class="btn btn-primary js-like">
-            <span class="js-likes">{{ project.likes | length }}</span>
-            {% if app.user and project.isLikedByUser(app.user) %}
-                <i class="fas fa-thumbs-up"></i>
-            {% else %}
-                <i class="far fa-thumbs-up"></i>
-            {% endif %}
-            <span class="js-label">J'aime</span>
-        </a>
+        <p>{{ project.content | raw }}
+        <div class="buttons">
+            <a href="{{ project.link }}" class="ml btn btn-warning" target="_blank" rel="noopener noreferrer">Lien vers
+                le site</a>
+            <a href="{{ path('project_like', {id: project.id}) }}" class="btn btn-primary js-like">
+
+                <span class="js-likes">{{ project.likes | length }}</span>
+                {% if app.user and project.isLikedByUser(app.user) %}
+                    <i class="fas fa-thumbs-up"></i>
+                {% else %}
+                    <i class="far fa-thumbs-up"></i>
+                {% endif %}
+                <span class="js-label">J'aime</span>
+            </a>
+        </div>
 
     </section>
 
     <section class="comments">
 
         {% if not app.user %}
-            <h4>Pour laisser un commentaire, <a href="{{ path('registration') }}"><button class="btn btn-dark">Inscrivez-vous</button></a>
-                ou <a href="{{ path('connection') }}"><button class="btn btn-dark">Connectez-vous</button></a></h4>
-            {% else %}
+            <h4>Pour laisser un commentaire,
+                <a href="{{ path('registration') }}" class="ml btn btn-dark">Inscrivez-vous</a>
+                ou
+                <a href="{{ path('connection') }}" class="ml btn btn-dark">Connectez-vous</a>
+            </h4>
+        {% else %}
 
-                <form class="form" method="post" action="{{ path('createComment',{'id' : project.id}) }}">
+            <form class="form" method="post" action="{{ path('createComment',{'id' : project.id}) }}">
 
-                    <div class="input-group flex-nowrap">
-                        <div class="input-group-prepend">
-                            <label for="comment" class="input-group-text" id="addon-wrapping">Ecrire un commentaire</label>
-                        </div>
-                        <textarea id="content" class="form-control" aria-label="content" name="content" aria-describedby="addon-wrapping" rows="4" cols ="20" required></textarea>
+                <div class="input-group flex-nowrap">
+                    <div class="input-group-prepend">
+                        <label for="comment" class="input-group-text" id="addon-wrapping">Ecrire un commentaire</label>
                     </div>
+                    <textarea id="content" class="form-control" aria-label="content" name="content"
+                              aria-describedby="addon-wrapping" rows="4" cols="20" required></textarea>
+                </div>
 
-                    <button type="submit" class="btn btn-primary">Envoyer</button>
+                <button type="submit" class="btn btn-primary">Envoyer</button>
 
-                </form>
+            </form>
 
         {% endif %}
 
-                {% for comment in comments %}
+        {% for comment in comments %}
 
-                    <section class="card" id="comments">
-                        <h3 class="card-header">Posté par : <strong>{{ comment.username.username }}</strong>, le {{ comment.creationDate | date("d/m/Y g:i") }}</h3>
-                        <div class="card-body">
-                            <p class="card-text">{{ comment.content }}</p>
-                        </div>
+            <section class="card card-comment">
+                <div class="flex-sb">
+                <h3 class="card-header">Posté par : <strong>{{ comment.username.username }}</strong>,
+                    le {{ comment.creationDate | date("d/m/Y g:i") }}
+                </h3>
+                    {% if is_granted('ROLE_ADMIN')%}
+                    <a class="controls" href="{{ path('deleteComment', {'id':comment.id }) }}">
+                        <button type="button" class="btn btnCom btn-danger">Supprimer</button>
+                    </a>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{ comment.content }}</p>
+                </div>
 
-                    </section>
 
-                {% endfor %}
+            </section>
+
+        {% endfor %}
 
 
     </section>

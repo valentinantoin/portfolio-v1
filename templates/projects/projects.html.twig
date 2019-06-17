@@ -10,18 +10,18 @@
 
     <div class="flex">
 
-    {% for project in projects %}
+        {% for project in projects %}
 
-<div class="card border-warning" id="card">
-    <div class="card-header">{{ project.title }}</div>
-    <div class="card-body">
-        <h4 class="card-title"><img src="img/projects/{{ project.imageName }}"></h4>
-        <p class="card-text">{{ project.content | slice(0, 250) | raw }}</p>
-        <a href="{{ path('project', {'id' : project.id}) }}" class="card-link">Voir plus...</a>
-    </div>
-</div>
+            <div class="card border-warning card-project">
+                <div class="card-header">{{ project.title }}</div>
+                <div class="card-body">
+                  <img src="img/projects/{{ project.imageName }}" alt="Page d'accueil du site">
+                    <p class="card-text">{{ project.content | slice(0, 250) | raw }}
+                    <a href="{{ path('project', {'id' : project.id}) }}" class="card-link">Voir plus...</a>
+                </div>
+            </div>
 
-    {% endfor %}
+        {% endfor %}
 
     </div>
 
