@@ -8,6 +8,7 @@ use App\Entity\Projects;
 use App\Form\Type\ProjectType;
 use App\Repository\ProjectLikeRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,11 +22,18 @@ class ProjectsController extends AbstractController
 {
     /**
      * @Route("/projects", name="projects")
+     * @param PaginatorInterface $paginator
+     * @param Request $request
+     * @return Response
      */
-    public function projects()
+    public function projects(PaginatorInterface $paginator, Request $request)
     {
         $repo = $this->getDoctrine()->getRepository(Projects::class);
-        $projects = $repo->findAll();
+        $projects = $paginator->paginate($repo->findAll(),
+            $request->query->getInt('page', 1),
+            4 /*limit per page*/);
+
+
 
         return $this->render('projects/projects.html.twig', [
             'projects' => $projects

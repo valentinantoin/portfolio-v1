@@ -154,6 +154,11 @@ section {
     margin: 0.5rem;
 }
 
+.navigation {
+    display: flex;
+    justify-content: center;
+}
+
 
 
 /*---ADMIN---*/
