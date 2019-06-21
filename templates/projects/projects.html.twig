@@ -11,11 +11,13 @@
         {% for project in projects %}
 
             <div class="card border-warning card-project">
-                <div class="card-header">{{ project.title }}</div>
+                <div class="card-header"><a href="{{ path('project', {'id' : project.id}) }}" class="card-link">{{ project.title }}</a></div>
                 <div class="card-body">
-                  <img src="img/projects/{{ project.imageName }}" alt="Page d'accueil du site">
+                    <figure>
+                        <img src="img/projects/{{ project.imageName }}" alt="Page d'accueil du site">
+                    </figure>
                     <p class="card-text">{{ project.content | slice(0, 250) | raw }}
-                    <a href="{{ path('project', {'id' : project.id}) }}" class="card-link">Voir plus...</a>
+                    <a href="{{ path('project', {'id' : project.id}) }}" class="card-link">...Voir plus...</a>
                 </div>
             </div>
 
