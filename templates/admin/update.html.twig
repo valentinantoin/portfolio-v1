@@ -15,14 +15,14 @@
 
     <h1 class="pt">Modifier le projet</h1>
 
-    {% for message in app.flashes('update') %}
-
-        <div class="alert alert-success">
-            {{ message }}
-        </div>
-    {% endfor %}
-
     <section class="form">
+
+        {% for message in app.flashes('update') %}
+
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
 
         {{ form(form) }}
 
