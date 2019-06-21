@@ -182,6 +182,16 @@ th {
 
 
 /*---MEDIAQUERIES---*/
+
+@media (max-width: 1366px) {
+    .card-project {
+        width: 40%;
+    }
+
+    #twitter {
+        width: 80%;
+    }
+}
 @media (max-width: 768px) {
 
     .jumbotron {
