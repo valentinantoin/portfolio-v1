@@ -16,15 +16,7 @@ class AdminController extends AbstractController
      */
     public function Index()
     {
-        $oauth = new TwitterOAuth("example", "example");
-        $accessToken = $oauth->oauth2('oauth2/token', ['grant_type' => 'client_credentials']);
-
-        $twitter = new TwitterOAuth("example", "example", null, $accessToken->access_token);
-        $tweets = $twitter->get('statuses/user_timeline', ['screen_name' => 'example', 'exclude_replies' => 'true', 'count' => '5']);
-
-        return $this->render('home/home.html.twig', [
-            'tweets' => $tweets
-        ]);
+        return $this->render('home/home.html.twig');
     }
 
     /**

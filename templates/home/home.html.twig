@@ -23,16 +23,6 @@
 
     <div class="home">
 
-        <div class="card border-secondary mb-3" id="twitter">
-            <div class="card-header">Flux d'actualités</div>
-            {% for tweet in tweets %}
-                <div class="card-body">
-                    <p class="card-text">{{ tweet.text | autoLink | raw }}</p>
-                    <p class="card-text"><small>Le {{ tweet.created_at | date("d/m/Y g:i") }}</small></p>
-                </div>
-            {% endfor %}
-        </div>
-
 
         <section class="presentation justify" id="presentation">
 
